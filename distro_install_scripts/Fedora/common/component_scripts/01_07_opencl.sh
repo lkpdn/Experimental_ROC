@@ -154,7 +154,7 @@ if [ ${ROCM_FORCE_PACKAGE} = true ]; then
     mkdir -p ./${ROCM_OUTPUT_DIR}/opencl/lib/x86_64/
     cd ${OPENCL_BUILD_DIR}/rocm-opencl-rpm/${ROCM_OUTPUT_DIR}/opencl/lib/x86_64/
     cp ${OPENCL_BUILD_DIR}/lib/libOpenCL.so.1 .
-    cp ${OPENCL_BUILD_DIR}/lib/libamdocl64.so .
+    cp ${OPENCL_BUILD_DIR}/lib/x86_64/libamdocl64.so .
     cd ${OPENCL_BUILD_DIR}/rocm-opencl-rpm/
     pushd ${BASE_DIR}/../common/
     cp ./rocm-opencl.spec ${OPENCL_BUILD_DIR}/rocm-opencl-rpm/
@@ -233,7 +233,6 @@ else
     ${ROCM_SUDO_COMMAND} cp ${ROCM_OUTPUT_DIR}/opencl/lib/libOpenCL.so.1.2 ${ROCM_OUTPUT_DIR}/opencl/lib/x86_64/
     ${ROCM_SUDO_COMMAND} ln -sf ${ROCM_OUTPUT_DIR}/opencl/lib/x86_64/libOpenCL.so.1.2 ${ROCM_OUTPUT_DIR}/opencl/lib/x86_64/libOpenCL.so.1
     ${ROCM_SUDO_COMMAND} ln -sf ${ROCM_OUTPUT_DIR}/opencl/lib/x86_64/libOpenCL.so.1 ${ROCM_OUTPUT_DIR}/opencl/lib/x86_64/libOpenCL.so
-    ${ROCM_SUDO_COMMAND} cp ${ROCM_OUTPUT_DIR}/opencl/lib/libamdocl64.so ${ROCM_OUTPUT_DIR}/opencl/lib/x86_64/
     ${ROCM_SUDO_COMMAND} rm -f ${ROCM_OUTPUT_DIR}/opencl/lib/lib*
     ${ROCM_SUDO_COMMAND} rm -rf ${ROCM_OUTPUT_DIR}/opencl/lib/clang/
 
