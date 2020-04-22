@@ -66,7 +66,15 @@ fi
 cd ${SOURCE_DIR}/rocBLAS
 mkdir -p build/release
 cd build/release
+# rocBLAS needs the default python to be python2.7
+if [ x$(which python) != xpython2.7 ]; then
+    ORIG_DEFAULT_PYTHON=`readlink -f $(which python)`
+    sudo ln -f -s `which python2.7` `which python`
+fi
 CXX=${ROCM_INPUT_DIR}/hcc/bin/hcc cmake -DCPACK_PACKAGING_INSTALL_PREFIX=${ROCM_OUTPUT_DIR}/ -DCPACK_GENERATOR=RPM ${ROCM_CPACK_RPM_PERMISSIONS} -DCMAKE_BUILD_TYPE=${ROCM_CMAKE_BUILD_TYPE} -DCMAKE_INSTALL_PREFIX=${ROCM_OUTPUT_DIR}/ ../..
+if [ x${ORIG_DEFAULT_PYTHON} != x ]; then
+    sudo ln -f -s ${ORIG_DEFAULT_PYTHON} `which python`
+fi
 # Linking can take a large amount of memory, and it will fail if you do not
 # have enough memory available per thread. As such, this # logic limits the
 # number of build threads in response to the amount of available memory on
